@@ -28,16 +28,16 @@ inline std::unordered_map<int, std::string> enumForSpecialRewardItem {
 	{0x3, "Poison Shards"},
 	{0x4, "Shadow Shards"},
 	{0x5, "Lava Shards"},
-	{0x6, "Bonus Key"},
+	{0x6, "Bonus Keys"},
 	{0x7, "Orbs"},
 	{0x8, "Diamonds"},
-	{0x9, "Custom Item"},
+	{0x9, "Custom Items"},
 	{0xA, "Earth Shards"},
 	{0xB, "Blood Shards"},
 	{0xC, "Metal Shards"},
 	{0xD, "Light Shards"},
 	{0xE, "Soul Shards"},
-	{0xF, "Gold Key"},
+	{0xF, "Gold Keys"},
 };
 
 inline std::unordered_map<UnlockType, IconType> sometimesIFuckingHateRobtop {

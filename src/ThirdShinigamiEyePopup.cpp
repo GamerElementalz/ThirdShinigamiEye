@@ -114,7 +114,9 @@ CCNode *ThirdShinigamiEyePopup::generateRewardRow(int quantity, SpecialRewardIte
 	CCNode* ret = ThirdShinigamiEyePopup::generateBaseRow();
 	Label* rewardLabel = Label::create("", "bigFont.fnt");
 	rewardLabel->enableEmojis("GJ_GameSheet03.png", &g_emojis);
-	rewardLabel->setString(fmt::format(" {} {}x {}", getEmojiForRewardType(rewardType), quantity, getDisplayNameSpecialRewardItem(rewardType)));
+	std::string displayName = getDisplayNameSpecialRewardItem(rewardType);
+	if (quantity == 1) displayName.pop_back();
+	rewardLabel->setString(fmt::format(" {} {}x {}", getEmojiForRewardType(rewardType), quantity, displayName));
 	ret->addChild(rewardLabel);
 	ret->updateLayout();
 	return ret;
