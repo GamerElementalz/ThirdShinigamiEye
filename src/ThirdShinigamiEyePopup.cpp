@@ -29,6 +29,11 @@ std::string ThirdShinigamiEyePopup::getEmojiForRewardType(SpecialRewardItem p0) 
 	return rewardToEmoji.at(p0);
 }
 
+std::string ThirdShinigamiEyePopup::formatColor(ccColor3B color) {
+	return fmt::format("#{:02X}{:02X}{:02X}", color.r, color.g, color.b);
+}
+
+
 CCNode* ThirdShinigamiEyePopup::generateBaseRow() {
 	CCNode* ret = CCNode::create();
 	ret->setContentSize({185.f, 30.f});
@@ -38,8 +43,11 @@ CCNode* ThirdShinigamiEyePopup::generateBaseRow() {
 }
 
 void ThirdShinigamiEyePopup::addSpriteToRewardRow(UnlockType unlockType, int iconID, CCNode *ret, CCSprite *coloredSprite) {
+	const std::string& determinedString = (unlockType != UnlockType::Col1 && unlockType != UnlockType::Col2) ? fmt::format("{} #{}", getDisplayNameUnlockType(unlockType), iconID) : fmt::format("{} #({})", getDisplayNameUnlockType(unlockType), ThirdShinigamiEyePopup::formatColor(GameManager::get()->colorForIdx(iconID)));
+	CCLabelBMFont* spriteRewardLabel = CCLabelBMFont::create(determinedString.c_str(), "bigFont.fnt");
+	spriteRewardLabel->setID("reward-label"_spr);
 	ret->addChild(coloredSprite);
-	ret->addChild(CCLabelBMFont::create(fmt::format("{} #{}", getDisplayNameUnlockType(unlockType), iconID).c_str(), "bigFont.fnt"));
+	ret->addChild(spriteRewardLabel);
 	ret->setLayout(RowLayout::create()->setGap(20.f)->setAxisAlignment(AxisAlignment::Start)->setDefaultScaleLimits(.1f, .5f));
 }
 
@@ -70,6 +78,7 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 			coloredSprite->setColor(GameManager::get()->colorForIdx(iconID));
 			CCLabelBMFont* dummyLabel = CCLabelBMFont::create(unlockType == UnlockType::Col2 ? "2" : "1", "bigFont.fnt");
 			dummyLabel->setScale(.65f);
+			dummyLabel->setID("color-indicator"_spr);
 			coloredSprite->addChildAtPosition(dummyLabel, Anchor::Center);
 			addSpriteToRewardRow(unlockType, iconID, ret, coloredSprite);
 			break;

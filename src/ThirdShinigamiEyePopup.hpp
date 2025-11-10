@@ -145,6 +145,7 @@ public:
 	static std::string getDisplayNameSpecialRewardItem(SpecialRewardItem p0);
 	static IconType getCorrespondingIconType(UnlockType p0);
 	static std::string getEmojiForRewardType(SpecialRewardItem p0);
+	static std::string formatColor(ccColor3B color);
 
 	void onActuallyOpenTheChest(CCObject* sender) {
 		m_button->activate();
