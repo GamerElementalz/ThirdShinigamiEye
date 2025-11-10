@@ -43,7 +43,7 @@ CCNode* ThirdShinigamiEyePopup::generateBaseRow() {
 }
 
 void ThirdShinigamiEyePopup::addSpriteToRewardRow(UnlockType unlockType, int iconID, CCNode *ret, CCSprite *coloredSprite) {
-	const std::string& determinedString = (unlockType != UnlockType::Col1 && unlockType != UnlockType::Col2) ? fmt::format("{} #{}", getDisplayNameUnlockType(unlockType), iconID) : fmt::format("{} #({})", getDisplayNameUnlockType(unlockType), ThirdShinigamiEyePopup::formatColor(GameManager::get()->colorForIdx(iconID)));
+	const std::string& determinedString = (unlockType != UnlockType::Col1 && unlockType != UnlockType::Col2) ? fmt::format("{} #{}", getDisplayNameUnlockType(unlockType), iconID) : fmt::format("{} {}", getDisplayNameUnlockType(unlockType), ThirdShinigamiEyePopup::formatColor(GameManager::get()->colorForIdx(iconID)));
 	CCLabelBMFont* spriteRewardLabel = CCLabelBMFont::create(determinedString.c_str(), "bigFont.fnt");
 	coloredSprite->setID("reward-sprite"_spr);
 	spriteRewardLabel->setID("reward-label"_spr);
