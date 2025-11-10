@@ -45,6 +45,7 @@ CCNode* ThirdShinigamiEyePopup::generateBaseRow() {
 void ThirdShinigamiEyePopup::addSpriteToRewardRow(UnlockType unlockType, int iconID, CCNode *ret, CCSprite *coloredSprite) {
 	const std::string& determinedString = (unlockType != UnlockType::Col1 && unlockType != UnlockType::Col2) ? fmt::format("{} #{}", getDisplayNameUnlockType(unlockType), iconID) : fmt::format("{} #({})", getDisplayNameUnlockType(unlockType), ThirdShinigamiEyePopup::formatColor(GameManager::get()->colorForIdx(iconID)));
 	CCLabelBMFont* spriteRewardLabel = CCLabelBMFont::create(determinedString.c_str(), "bigFont.fnt");
+	coloredSprite->setID("reward-sprite"_spr);
 	spriteRewardLabel->setID("reward-label"_spr);
 	ret->addChild(coloredSprite);
 	ret->addChild(spriteRewardLabel);
@@ -57,6 +58,7 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 	SimplePlayer* twitterWasAMistake = SimplePlayer::create(0);
 	twitterWasAMistake->updatePlayerFrame(0, IconType::Cube);
 	twitterWasAMistake->setOpacity(0);
+	twitterWasAMistake->setID("padding-start"_spr);
 	ret->addChild(twitterWasAMistake);
 
 	switch (unlockType) {
@@ -96,6 +98,7 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 			fakeIcon->updatePlayerFrame(iconID, getCorrespondingIconType(unlockType));
 			fakeIcon->setColors(GameManager::get()->colorForIdx(GameManager::get()->m_playerColor.value()), GameManager::get()->colorForIdx(GameManager::get()->m_playerColor2.value()));
 			if (GameManager::get()->m_playerGlow) fakeIcon->setGlowOutline(GameManager::get()->colorForIdx(GameManager::get()->m_playerGlowColor.value()));
+			fakeIcon->setID("reward-icon-preview"_spr);
 			ret->addChild(fakeIcon);
 			ret->addChild(CCLabelBMFont::create(fmt::format("{} #{}", getDisplayNameUnlockType(unlockType), iconID).c_str(), "bigFont.fnt"));
 			break;
@@ -107,6 +110,7 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 			Label* advLabel = Label::create("", "bigFont.fnt");
 			advLabel->enableEmojis("GJ_GameSheet03.png", &g_emojis);
 			advLabel->setString(fmt::format(" {} {} ID {}", unlockToEmoji.at(unlockType), getDisplayNameUnlockType(unlockType), iconID));
+			advLabel->setID("basic-reward-label"_spr);
 			ret->addChild(advLabel);
 			break;
 		}
@@ -114,6 +118,7 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 	SimplePlayer* twitterWasAMistakeAgain = SimplePlayer::create(0);
 	twitterWasAMistakeAgain->updatePlayerFrame(0, IconType::Cube);
 	twitterWasAMistakeAgain->setOpacity(0);
+	twitterWasAMistakeAgain->setID("padding-end"_spr);
 	ret->addChild(twitterWasAMistakeAgain);
 	ret->updateLayout();
 	return ret;
@@ -153,6 +158,7 @@ bool ThirdShinigamiEyePopup::setup() {
 	containerNode->updateLayout();
 
 	CCMenuItemSpriteExtra* openButton = CCMenuItemSpriteExtra::create(ButtonSprite::create("Open!", "goldFont.fnt", "GJ_button_01.png"), this, menu_selector(ThirdShinigamiEyePopup::onActuallyOpenTheChest));
+	openButton->setID("open-button"_spr);
 	m_buttonMenu->addChild(openButton);
 	openButton->setPosition(m_mainLayer->getContentSize() / 2.f);
 	openButton->setPositionY(25.f);
