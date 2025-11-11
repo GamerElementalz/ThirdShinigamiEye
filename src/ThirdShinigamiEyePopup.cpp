@@ -111,6 +111,7 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 			advLabel->enableEmojis("GJ_GameSheet03.png", &g_emojis);
 			advLabel->setString(fmt::format(" {} {} ID {}", unlockToEmoji.at(unlockType), getDisplayNameUnlockType(unlockType), iconID));
 			advLabel->setID("basic-reward-label"_spr);
+			advLabel->setTag(11112025);
 			ret->addChild(advLabel);
 			break;
 		}
@@ -131,6 +132,7 @@ CCNode *ThirdShinigamiEyePopup::generateRewardRow(int quantity, SpecialRewardIte
 	std::string displayName = getDisplayNameSpecialRewardItem(rewardType);
 	if (quantity == 1) displayName.pop_back();
 	rewardLabel->setString(fmt::format(" {} {}x {}", getEmojiForRewardType(rewardType), quantity, displayName));
+	rewardLabel->setID("special-reward-label"_spr);
 	ret->addChild(rewardLabel);
 	ret->updateLayout();
 	return ret;

@@ -8,7 +8,7 @@
 	},
 	"id": "raydeeux.thirdshinigamieye",
 	"name": "ThirdShinigamiEye",
-	"version": "v1.0.0",
+	"version": "v1.0.1",
 	"developer": "RayDeeUx",
 	"description": "Peek inside any chest in the basement before opening it!",
 	"repository": "https://github.com/RayDeeUx/ThirdShinigamiEye",
@@ -20,6 +20,7 @@
 			"default": true
 		}
 	},
+	"tags": [ "cheat" ]
 	"issues": {
 		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
 		"info": "Ping me <cl>(@erymanthus)</c> in the Geode SDK Discord server's <cl>#help</c> channel if you need help. <cr>DMs are NOT accepted.</c>"
