@@ -2,7 +2,7 @@
 
 ThirdShinigamiEyePopup* ThirdShinigamiEyePopup::create(CCArray* rewards, int chestID, const Ref<CCMenuItemSpriteExtra> button) {
 	auto* ret = new ThirdShinigamiEyePopup(rewards, chestID, button);
-	if (ret->initAnchored(250.f, 240.f, "GJ_square02.png")) {
+	if (ret->init()) {
 		ret->autorelease();
 		return ret;
 	}
@@ -138,7 +138,9 @@ CCNode *ThirdShinigamiEyePopup::generateRewardRow(int quantity, SpecialRewardIte
 	return ret;
 }
 
-bool ThirdShinigamiEyePopup::setup() {
+bool ThirdShinigamiEyePopup::init() {
+	if (!geode::Popup::init(250.f, 240.f, "GJ_square02.png")) return false;
+
 	this->setTitle(fmt::format("Rewards Preview", m_chestID));
 	this->m_title->setID("rewards-preview-title"_spr);
 

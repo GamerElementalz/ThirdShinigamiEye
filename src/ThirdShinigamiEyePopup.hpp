@@ -122,7 +122,7 @@ static const Label::EmojiMap g_emojis = {
 	{U"⛽", "shipfireIcon_02_001.png"},
 };
 
-class ThirdShinigamiEyePopup final : public geode::Popup<> {
+class ThirdShinigamiEyePopup final : public geode::Popup {
 protected:
 	explicit ThirdShinigamiEyePopup(CCArray* rewards, int chestID, const Ref<CCMenuItemSpriteExtra> &button) {
 		m_rewards = rewards;
@@ -134,7 +134,7 @@ protected:
 	Ref<CCMenuItemSpriteExtra> m_button;
 public:
 	static ThirdShinigamiEyePopup* create(CCArray* rewards, int chestID, Ref<CCMenuItemSpriteExtra> button);
-	bool setup() override;
+	bool init() override;
 
 	static CCNode* generateBaseRow();
 	static void addSpriteToRewardRow(UnlockType unlockType, int iconID, CCNode *ret, CCSprite *coloredSprite);
