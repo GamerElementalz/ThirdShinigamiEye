@@ -26,8 +26,5 @@ endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-CPMAddPackage("gh:Prevter/AdvancedLabel#d78d7f8")
-target_link_libraries(${PROJECT_NAME} advanced_label)
-
 # Set up dependencies, resources, and link Geode.
 setup_geode_mod(${PROJECT_NAME})

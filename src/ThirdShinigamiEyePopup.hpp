@@ -1,6 +1,7 @@
 #pragma once
 
-#include <AdvancedLabel.hpp>
+#include <Geode/Geode.hpp>
+#include <Geode/ui/Label.hpp>
 
 using namespace geode::prelude;
 
@@ -90,7 +91,9 @@ inline std::unordered_map<UnlockType, std::string> unlockToEmoji {
 	{UnlockType::ShipFire, "⛽"},
 };
 
-static const Label::EmojiMap g_emojis = {
+// Geode v6: o Label embutido substitui a biblioteca AdvancedLabel.
+// Lista emoji -> nome do sprite (os literais U"..." ficam em memória estática).
+static const std::vector<std::pair<std::u32string_view, const char*>> g_emojiFrames = {
 	{U"❓", "gj_explosionBtn_off_001.png"},
 	{U"💎", "GJ_bigDiamond_001.png"},
 	{U"🔐", "GJ_bigKey_001.png"},
@@ -121,6 +124,18 @@ static const Label::EmojiMap g_emojis = {
 	{U"🚀", "gj_jetpackBtn_off_001.png"},
 	{U"⛽", "shipfireIcon_02_001.png"},
 };
+
+// Monta (uma única vez) o geode::EmojiRegistry usado pelos labels do popup.
+inline const geode::EmojiRegistry& getTSEEmojiRegistry() {
+	static const geode::EmojiRegistry registry = [] {
+		geode::EmojiRegistry result;
+		for (auto const& [sequence, frameName] : g_emojiFrames) {
+			result.insert(sequence, geode::ZStringView(frameName));
+		}
+		return result;
+	}();
+	return registry;
+}
 
 class ThirdShinigamiEyePopup final : public geode::Popup {
 protected:

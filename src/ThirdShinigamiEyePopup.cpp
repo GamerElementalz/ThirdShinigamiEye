@@ -107,9 +107,9 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 		// trail template: CCSprite::createWithSpriteFrameName(fmt::format("player_special_{:02d}_001.png", iconID).c_str());
 		// death effect template: CCSprite::createWithSpriteFrameName(fmt::format("explosionIcon_{:02d}_001.png", iconID).c_str());
 		default: {
-			Label* advLabel = Label::create("", "bigFont.fnt");
-			advLabel->enableEmojis("GJ_GameSheet03.png", &g_emojis);
-			advLabel->setString(fmt::format(" {} {} ID {}", unlockToEmoji.at(unlockType), getDisplayNameUnlockType(unlockType), iconID));
+			geode::Label* advLabel = geode::Label::create("", "bigFont.fnt");
+			advLabel->setEmojiRegistry(getTSEEmojiRegistry());
+			advLabel->setText(fmt::format(" {} {} ID {}", unlockToEmoji.at(unlockType), getDisplayNameUnlockType(unlockType), iconID));
 			advLabel->setID("basic-reward-label"_spr);
 			advLabel->setTag(11112025);
 			ret->addChild(advLabel);
@@ -127,11 +127,11 @@ CCNode* ThirdShinigamiEyePopup::generateIconRow(UnlockType unlockType, int iconI
 
 CCNode *ThirdShinigamiEyePopup::generateRewardRow(int quantity, SpecialRewardItem rewardType) {
 	CCNode* ret = ThirdShinigamiEyePopup::generateBaseRow();
-	Label* rewardLabel = Label::create("", "bigFont.fnt");
-	rewardLabel->enableEmojis("GJ_GameSheet03.png", &g_emojis);
+	geode::Label* rewardLabel = geode::Label::create("", "bigFont.fnt");
+	rewardLabel->setEmojiRegistry(getTSEEmojiRegistry());
 	std::string displayName = getDisplayNameSpecialRewardItem(rewardType);
 	if (quantity == 1) displayName.pop_back();
-	rewardLabel->setString(fmt::format(" {} {}x {}", getEmojiForRewardType(rewardType), quantity, displayName));
+	rewardLabel->setText(fmt::format(" {} {}x {}", getEmojiForRewardType(rewardType), quantity, displayName));
 	rewardLabel->setID("special-reward-label"_spr);
 	ret->addChild(rewardLabel);
 	ret->updateLayout();
@@ -141,7 +141,7 @@ CCNode *ThirdShinigamiEyePopup::generateRewardRow(int quantity, SpecialRewardIte
 bool ThirdShinigamiEyePopup::init() {
 	if (!geode::Popup::init(250.f, 240.f, "GJ_square02.png")) return false;
 
-	this->setTitle(fmt::format("Rewards Preview", m_chestID));
+	this->setTitle("Rewards Preview");
 	this->m_title->setID("rewards-preview-title"_spr);
 
 	CCNode* containerNode = CCNode::create();
@@ -151,7 +151,7 @@ bool ThirdShinigamiEyePopup::init() {
 	unsigned int i = m_rewards->count();
 	for (GJRewardObject* item : CCArrayExt<GJRewardObject*>(m_rewards)) {
 		CCNode* node = item->m_specialRewardItem != SpecialRewardItem::CustomItem ? generateRewardRow(item->m_total, item->m_specialRewardItem) : generateIconRow(item->m_unlockType, item->m_itemID);
-		node->setID(fmt::format("reward-item-{}"_spr, i));
+		node->setID(fmt::format("{}/reward-item-{}", GEODE_MOD_ID, i));
 		containerNode->addChild(node);
 		i--;
 	}
