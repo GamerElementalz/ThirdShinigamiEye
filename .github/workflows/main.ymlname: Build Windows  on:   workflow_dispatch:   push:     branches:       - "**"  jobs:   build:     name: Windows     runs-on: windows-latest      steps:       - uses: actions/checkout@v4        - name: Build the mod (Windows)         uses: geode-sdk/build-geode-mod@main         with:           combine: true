@@ -1,0 +1,20 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    name: Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the mod (Windows)
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          combine: true
